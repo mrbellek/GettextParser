@@ -180,7 +180,7 @@ class GettextParser
                 $gettextCallsBuffer .= ', 3);' . PHP_EOL;
             } else {
                 //single
-                $gettextCallsBuffer .= '_("' . $phrase . '");' . PHP_EOL;
+                $gettextCallsBuffer .= '_("' . $this->escapeQuotes($phrase) . '");' . PHP_EOL;
             }
         }
 
@@ -189,6 +189,21 @@ class GettextParser
 
         return ( bool )file_put_contents($this->resultPath, $result, FILE_BINARY);
     }
+
+	private function escapeQuotes($phrase)
+	{
+		//text will be printed in double quotes, so
+		//- escape any double quotes in text that are not already escaped
+		//- unescape any escaped single quotes
+
+		if (strpos($phrase, '\"') === FALSE) {
+			$phrase = str_replace('"', '\"', $phrase);
+		}
+
+		$phrase = str_replace("\'", "'", $phrase);
+
+		return $phrase;
+	}
 
     /**
      * @param $params

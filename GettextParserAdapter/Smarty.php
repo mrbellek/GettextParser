@@ -13,6 +13,7 @@ class GettextParserAdapter_Smarty extends GettextParserAdapter
         $this->patterns[] = new GettextParserPattern("~\{t\}([^\{]+)\{/t\}~");
 
         // search for gettext function call: {_("Text to be localized")}
-        $this->patterns[] = new GettextParserPattern("~\{_\((?:\"|')([^\)]+)(?:\"|')\)\}~");
+        $this->patterns[] = new GettextParserPattern("~_\((?:\"|')([^\)]+)(?:\"|')\)~");
+        $this->patterns[] = new GettextParserPattern("~__\((?:\"|')([^\)]+)(?:\"|')\)~");
     }
 }
